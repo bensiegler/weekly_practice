@@ -1,35 +1,30 @@
 def reverser(s):
-    first_index = 0
-    second_index = len(s) - 1
-    print(second_index - first_index)
-    while not (second_index - first_index) <= 1:
-        if is_punctuation(s, first_index):
-            first_index += 1
+    first_word_start = 0
+    second_word_start = s.rfind(" ")
+    first_word_end = first_word_start
+    second_word_end = second_word_start + 1
 
-        if is_punctuation(s, second_index):
-            second_index -= 1
+    while not (second_word_start - first_word_start) <= 1:
 
-        s = swap(s, first_index, second_index)
+        while s[first_word_end].isalpha():
+            first_word_end += 1
 
-        first_index += 1
-        second_index -= 1
+        while s[second_word_end].isalpha():
+            second_word_end += 1
 
+        first_word = s[first_word_start:first_word_end]
+        second_word = s[second_word_start:second_word_end]
+        index_adjustment = len(first_word) - len(second_word)
+        s = s[:first_word_start] + second_word + s[first_word_end:]
+        s = s[:second_word_start] + first_word + s[second_word_end - index_adjustment:]
+
+        first_word_start = first_word_end
+        while not s[first_word_start].isalpha():
+            first_word_start += 1
+
+        second_word_start = s.rfind(" ", None, second_word_start)
+        second_word_end = second_word_start
     return s
-
-
-def swap(s, first, second):
-    s = s[:first] + s[second: second + 1] + s[first:]
-    s = s[second:] + s[:second]
-    return s[:second] + s[first: first + 1] + s[:second]
-
-
-def is_punctuation(s, index):
-    char = s[index]
-    ascii_val = ord(char)
-    if (64 < ascii_val < 91) | (96 < ascii_val < 123):
-        return False
-    else:
-        return True
 
 
 print(reverser("hello, this is ben."))
