@@ -1,26 +1,35 @@
-
 def reverser(s):
-    words = s.split(" ")
-    swapped = ""
+    first_index = 0
+    second_index = len(s) - 1
+    print(second_index - first_index)
+    while not (second_index - first_index) <= 1:
+        if is_punctuation(s, first_index):
+            first_index += 1
 
-    for i in range(1, len(words) + 1):
-        end = len(words) - i
-        start = i
-        first_word = words[start]
-        last_word = words[end]
+        if is_punctuation(s, second_index):
+            second_index -= 1
+
+        s = swap(s, first_index, second_index)
+
+        first_index += 1
+        second_index -= 1
+
+    return s
 
 
-def punctuation_swapper(source_word, output_word):
-    for j in range(len(source_word)):
-        ascii_val = ord(source_word[j])
-        if not ((ascii_val > 64 & ascii_val < 91) | (ascii_val > 96 & ascii_val < 123)):
-            if j > len(source_word) / 2:
-                output_word += chr(ascii_val)
-            else:
-                output_word = chr(ascii_val) + output_word
-            source_word = source_word[:j] + source_word[j:]
-    return source_word, output_word
+def swap(s, first, second):
+    s = s[:first] + s[second: second + 1] + s[first:]
+    s = s[second:] + s[:second]
+    return s[:second] + s[first: first + 1] + s[:second]
+
+
+def is_punctuation(s, index):
+    char = s[index]
+    ascii_val = ord(char)
+    if (64 < ascii_val < 91) | (96 < ascii_val < 123):
+        return False
+    else:
+        return True
 
 
 print(reverser("hello, this is ben."))
-
