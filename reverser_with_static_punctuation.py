@@ -1,4 +1,5 @@
 def reverser(s):
+    s = s.strip()
     first_word_start = 0
     second_word_start = s.rfind(" ")
     first_word_end = first_word_start
@@ -15,9 +16,11 @@ def reverser(s):
 
         while s[first_word_end].isalpha():
             first_word_end += 1
-
-        while s[second_word_end].isalpha():
-            second_word_end += 1
+        try:
+            while s[second_word_end].isalpha():
+                second_word_end += 1
+        except IndexError:
+            second_word_end = len(s)
 
         if (second_word_start - first_word_end) <= 1:
             break
@@ -37,4 +40,5 @@ def reverser(s):
 
 
 # print(reverser("hello, this is ben."))
-print(reverser("hi I am tired"))
+# print(reverser("hi I am tired"))
+print(reverser("!ahh! .is. ,scary, :agh:"))
