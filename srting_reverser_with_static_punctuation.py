@@ -39,6 +39,6 @@ def reverser(s):
     return s
 
 
-# print(reverser("hello, this is ben."))
-# print(reverser("hi I am tired"))
+print(reverser("hello, this is ben."))
+print(reverser("hi I am tired"))
 print(reverser("!ahh! .is. ,scary, :agh:"))
